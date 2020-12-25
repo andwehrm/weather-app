@@ -80,7 +80,7 @@ async function get_weather_forecast(geo_data)
         "method": "GET",
         "mode" : "cors",
         "headers": {
-		"x-rapidapi-key": "c24e315b32mshc94c504c1e2007cp1c54d5jsn4772a1604641",
+		"x-rapidapi-key": "6839885300msh729e2d04480dac3p1b1058jsnd11011b98d41",
 		"x-rapidapi-host": "weatherbit-v1-mashape.p.rapidapi.com"
         }
     })
@@ -97,7 +97,7 @@ async function get_current_weather(geo_data)
         "method": "GET",
         "mode" : "cors",
         "headers": {
-		"x-rapidapi-key": "c24e315b32mshc94c504c1e2007cp1c54d5jsn4772a1604641",
+		"x-rapidapi-key": "6839885300msh729e2d04480dac3p1b1058jsnd11011b98d41",
 		"x-rapidapi-host": "weatherbit-v1-mashape.p.rapidapi.com"
         }
     })
