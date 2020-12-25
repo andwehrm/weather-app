@@ -78,9 +78,10 @@ async function get_weather_forecast(geo_data)
     const forecast_url = "https://weatherbit-v1-mashape.p.rapidapi.com/forecast/hourly?lon=" + geo_data.longitude +"&lat=" + geo_data.latitude +"&hours=12"
     const forecast_response = await fetch(forecast_url, {
         "method": "GET",
+        "mode" : "cors",
         "headers": {
-            "x-rapidapi-key": "df08718e22mshf35a70598174a65p16fac5jsn3d22b539d0f6",
-            "x-rapidapi-host": "weatherbit-v1-mashape.p.rapidapi.com"
+		"x-rapidapi-key": "c24e315b32mshc94c504c1e2007cp1c54d5jsn4772a1604641",
+		"x-rapidapi-host": "weatherbit-v1-mashape.p.rapidapi.com"
         }
     })
     const forecast_data = await forecast_response.json()
@@ -94,9 +95,10 @@ async function get_current_weather(geo_data)
     const weather_url = "https://weatherbit-v1-mashape.p.rapidapi.com/current?lon=" + geo_data.longitude +"&lat=" + geo_data.latitude
     const weather_response = await fetch(weather_url, {
         "method": "GET",
+        "mode" : "cors",
         "headers": {
-            "x-rapidapi-key": "df08718e22mshf35a70598174a65p16fac5jsn3d22b539d0f6",
-            "x-rapidapi-host": "weatherbit-v1-mashape.p.rapidapi.com"
+		"x-rapidapi-key": "c24e315b32mshc94c504c1e2007cp1c54d5jsn4772a1604641",
+		"x-rapidapi-host": "weatherbit-v1-mashape.p.rapidapi.com"
         }
     })
     const weather_data = await weather_response.json()
@@ -235,6 +237,7 @@ export default class GetWeatherData extends React.Component{
         time: null,
         date: null,
         background: null,
+        current_weather: null
     }
     
    async componentDidMount(){
@@ -263,6 +266,7 @@ export default class GetWeatherData extends React.Component{
             date:           format_date(dt.getDate()),
             month:          get_month_name(dt.getMonth()),
             weekday:        get_day_name(time_data.day_of_week),
+            current_weather:weather_data,
             loading:        false
         });
 
@@ -272,13 +276,18 @@ export default class GetWeatherData extends React.Component{
     render(){
         return <div>
         {this.state.loading ? (
-            <div>loading... </div> 
+          <div class="loading">
+              <div class="loader"></div>
+              <div class="loading-text"> 
+              <h1 >Loading Page... </h1>
+              </div> 
+            </div>
             ) : (
               
             <div id="weather">
                 <p id="date">{this.state.weekday}, {this.state.date} {this.state.month}</p>
                 <p id="time">{this.state.time}</p>
-                <p id="location">{this.state.forecast.data[0].city_name}</p>
+                <p id="location">{this.state.current_weather.data[0].city_name}</p>
                 <img id="weather-icon"  src={`${process.env.PUBLIC_URL}` + get_weather_icon(this.state.forecast.data[0].weather.icon)}  alt={this.state.forecast.data[0].weather.description}></img>
                 <p id="temp">{this.state.forecast.data[0].temp}°C</p>
                 <p id="weekday">{this.state.weekday}</p>
